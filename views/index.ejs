@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="shortcut icon" href="public/favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <script src="public/bf.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"
+     media="screen,projection" />-->
+  <link rel="stylesheet" type="text/css" href="public/css/style.css">
+
+  <title>ide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body onload="init();">
+  <!-- Grey with black text -->
+  <div id="page">
+    <form name="mainform" id="mainform">
+      <nav class="navbar navbar-expand bg-dark navbar-dark">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-6 mt-lg-12">
+
+          </ul>
+
+          <h1 id="fio">IDE</h1>
+          <div id="uLogin" data-ulogin="callback=Authorization;display=panel;theme=classic;fields=first_name,last_name;
+                providers=vkontakte,facebook,twitter;hidden=;redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F%23%2Feditor;mobilebuttons=0;">
+          </div>
+
+        </div>
+      </nav>
+
+      <div class="toolbar">
+        <nav class="navbar navbar-expand navbar-light bg-light">
+          <button class="btn btn-primary btn-sm" type="button" name="button" onclick="test()" id="newfile">
+          <i class="material-icons right">note_add</i>
+        </button>
+          <button class="btn btn-primary btn-sm" type="button" name="button" onclick="deletefile(filename)">
+            <i class="material-icons md-48">delete</i>
+        </button>
+          <button hidden="true" class="btn btn-primary btn-sm" type="button" name="button" onclick="savecurrentfile()" id="savebtn2">
+              <i class="material-icons">save</i>
+        </button>
+          <div id="buttons_debug">
+            <input hidden="true" type="button" value="Run" onclick="run(this.form)" id="button_run" class="btn btn-primary">
+            <input type="button" value="Start Debugger" onclick="debug_toggle(this.form);" id="button_debug" class="btn btn-primary">
+            <input type="button" value="Single Step" onclick="run_step();" disabled id="button_step" class="btn btn-primary">
+            <input type="button" value="Run To Breakpoint" onclick="run_debug();" disabled id="button_run_debug" class="btn btn-primary">
+          </div>
+      </div>
+      </nav>
+
+      <div class="panel-container">
+        <div class="panel-left">
+          <div id="sidenav">
+
+            <div id="btn">
+
+            </div>
+          </div>
+        </div>
+
+        <div class="splitter">
+        </div>
+        <div class="panel-right">
+          <div class="panel-container-vertical">
+            <div class="panel-top">
+              <textarea id="edit_source" name="source" wrap="virtual" class="maintextarea"></textarea>
+            </div>
+            <div class="splitter-horizontal">
+            </div>
+            <div class="panel-bottom">
+              <textarea hidden="true" id="edit_output" name="output" wrap="virtual" class="editsmall"></textarea>
+              <textarea hidden="true" id="edit_input" name="input" wrap="virtual" class="editsmall"></textarea>
+              <pre class="viewer" id="outputview"> </pre>
+
+              <input hidden="true " type="radio" id="input_mode_1" name="input_mode" value="1" onclick="sync_input();" checked>
+              <input hidden="true" type="radio" id="input_mode_2" name="input_mode" value="2" onclick="sync_input();">
+              <pre hidden="true" class="viewer" id="progview"> </pre>
+
+              <pre hidden="true" class="viewer" id="inputview"> </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br> Memory Viewer:<br>
+        <p class="uppanelcode">00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F</p>
+        <div id="mv0">
+          <p class="viewer" id="memview3"></p>
+        </div>
+      <div id="mv1">
+        <p class="viewer" id="memview"> </p>
+      </div>
+      <div id="mv2">
+        <p class="viewer" id="memview2"> </p>
+      </div>
+
+
+      <select hidden="true" onchange="this.form.source.value=this.options[this.selectedIndex].value; this.selectedIndex=0;" id="edit_progs">
+  				<option value="">Example programs...</option>
+  			</select><br>
+  </div>
+
+
+  </form>
+
+  <!-- Модальное окно -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" id="inputinmodaldec" placeholder="input decimal code ">
+          <input type="text" class="form-control" id="inputinmodalhex" placeholder="input hex">
+        </div>
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>!-->
+          <button type="button" class="btn btn-primary" onclick="get_input()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="//ulogin.ru/js/ulogin.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+  <script src='https://rawgit.com/RickStrahl/jquery-resizable/master/src/jquery-resizable.js'></script>
+  <script src="public/index.js" charset="utf-8"></script>
+  <script src="public/main.js"></script>
+
+</body>
+
+</html>
