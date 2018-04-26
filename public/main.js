@@ -267,53 +267,15 @@ $('.viewer').on('click', 'span', function(e) {
   var span = this;
   var idx = this.className;
 
-  //if (divhex != null)
-  //divhex.remove();
-
   var input1 = $('span input')[parseInt(idx) + 1];
   console.log(input1);
-  input1.keydown(function(event) {
-    console.log('keyup');
+  $('span input').keydown(function(event) {
+  //  console.log('keyup');
     if (event.keyCode === 13) {
-        console.log(this);
+        //console.log($( this ).val());
+         //changeselemmemory(idx, parseInt(divhex.value, 16));
       }
-    //   //console.log(span.text);
-    //   //  span.textContent = divhex.value;
-    //   changeselemmemory(idx, parseInt(divhex.value, 16));
-    //   update_memview2();
-    //   //  $("#memview2 span").text(String.fromCharCode(parseInt(divhex.value)));
-    //   divhex.remove();
-    //   return false;
-    // }
-
   });
-
-  //$('span input')[parseInt(idx) + 1].keyup(function() {
-    //alert("Key up detected");
-  //});
-
-  // divhex = document.createElement('input');
-  //divhex.value = $('span')[parseInt(idx)+1].textContent;
-  // divhex.setAttribute("class", "divhex");
-  // divhex.setAttribute("maxlength", "2");
-  // divhex.setAttribute("type", "text");
-  // divhex.style.position = 'absolute';
-  // divhex.style.width = "100px";
-  // divhex.style.left = e.pageX + "px";
-  // divhex.style.top = e.pageY - 50 + "px";
-  // divhex.addEventListener("keyup", function(event) {
-
-  // if (event.keyCode === 13) {
-  //   //console.log(span.text);
-  //   //  span.textContent = divhex.value;
-  //   changeselemmemory(idx, parseInt(divhex.value, 16));
-  //   update_memview2();
-  //   //  $("#memview2 span").text(String.fromCharCode(parseInt(divhex.value)));
-  //   divhex.remove();
-  //   return false;
-  // }
-  //});
-  //$(".panel-bottom").append(divhex); //  Добавим наш див на страницу
 });
 
 function getRndInteger(min, max) {
