@@ -95,11 +95,13 @@ function get_input() {
   $("#myModal").modal('toggle');
   //var data = window.prompt("Enter an input character (use #xxx to specify a decimal code, !xxx for an octal code, or $xxx for a hex code):", "#0");
   var data = $("#inputinmodaldec").val();
-  if (data != null)
-    g_memory[g_mp] = parseInt(data, 10);
+  console.log(data);
+  if (data != "")
+    g_memory[g_mp] = parseInt(data.charCodeAt(0) - 1, 10);
   else {
     data = $("#inputinmodalhex").val();
-    g_memory[g_mp] = eval('0x' + data);
+    //console.log(data);
+    g_memory[g_mp] = parseInt(data, 16) - 1; //eval('0x' + data);
   }
   return;
   if (($("#inputinmodaldec").val() == null) && ($("#inputinmodalhex").val() == null))
@@ -290,6 +292,47 @@ function changeselemmemory(idx, value) {
   console.log('cnhagememory');
 }
 
+function update_memview2() {
+  console.log('zasho');
+  var lines2 = [];
+  for (var y = 0; y < 16; y++) { //столбы
+
+    var cells2 = [];
+
+    for (var x = 0; x < 16; x++) {
+
+      var idx = x + (y * 16);
+
+      //var label = decimalToHexString(parseInt(pad_num(g_memory[idx], 2)));
+      //label = addLeadingZeros(label, 2);
+      var label2 = transformtodots(pad_num(g_memory[idx], 2));
+
+      //cells.push('<span style="background-color: lightgreen" class = "' + idx + '">' + label + '</span>');
+      if (idx == g_mp) {
+        //  cells.push('<input type="text" value="'+ label +'">');
+        //cells2.push('<span style="background-color: lightgreen">' + label2 + '</span>');
+
+      } else {
+        //cells.push(label);
+        cells2.push(label2);
+      }
+    }
+
+    //lines.push(cells.join(' '));
+    lines2.push(cells2.join(' '));
+  }
+
+  ///  var html = lines.join(g_linebreaker);
+  var html2 = lines2.join(g_linebreaker);
+
+  //var p_node = document.getElementById('memview');
+
+  var p_node2 = document.getElementById('memview2'); //колхоз
+  //  p_node.innerHTML = html;
+  p_node2.innerHTML = html2;
+  return;
+}
+
 function update_memview() {
   var lines = [];
   var lines2 = [];
@@ -308,12 +351,17 @@ function update_memview() {
 
       var label2 = transformtodots(pad_num(g_memory[idx], 2));
 
+    //  cells.push('<span style="background-color: lightgreen" class = "' + idx + '">' + label + '</span>');
+      //cells.push('<inpt');
+      cells.push('<span class = "' + idx + '"><input type="text" class="inputdump" maxlength="3" size="2" value="'+label+'"></span>');
       if (idx == g_mp) {
-        cells.push('<span style="background-color: lightgreen" class = "' + idx + '">' + label + '</span>');
+        //  cells.push('<input type="text" value="'+ label +'">');
+        //cells.push('<span style="background-color: lightgreen"><input type="text" value="'+label+'"></span>');
         cells2.push('<span style="background-color: lightgreen">' + label2 + '</span>');
 
+
       } else {
-        cells.push(label);
+        //cells.push(label);
         cells2.push(label2);
       }
     }

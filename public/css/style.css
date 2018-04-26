@@ -135,8 +135,18 @@ pre.viewer {
 #memview3{
   width: 100%;
 }
+#myModal2 .modal-body{
+  width: 1000px;
+}
+.inputdump{
+  background-color: white;
+  margin-bottom:-9px;
+  border: none;
+  width: 12px;
+  font-size: 10px;
+}
 p.viewer {
-  width: 50%;
+  width: 55%;
   padding: 6px;
   background-color: #dddddd;
   margin: 0px;

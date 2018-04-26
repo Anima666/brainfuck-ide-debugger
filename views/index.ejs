@@ -57,6 +57,8 @@
             <input type="button" value="Start Debugger" onclick="debug_toggle(this.form);" id="button_debug" class="btn btn-primary">
             <input type="button" value="Single Step" onclick="run_step();" disabled id="button_step" class="btn btn-primary">
             <input type="button" value="Run To Breakpoint" onclick="run_debug();" disabled id="button_run_debug" class="btn btn-primary">
+            <input type="button" value="ShowMemory" class="btn btn-primary" onclick="showmemorypnl()">
+            <input type="button" value="Show" class="btn btn-primary" onclick="showoutl()">
           </div>
       </div>
       </nav>
@@ -83,29 +85,29 @@
             <div class="panel-bottom">
               <textarea hidden="true" id="edit_output" name="output" wrap="virtual" class="editsmall"></textarea>
               <textarea hidden="true" id="edit_input" name="input" wrap="virtual" class="editsmall"></textarea>
-              <pre class="viewer" id="outputview"> </pre>
-
               <input hidden="true " type="radio" id="input_mode_1" name="input_mode" value="1" onclick="sync_input();" checked>
               <input hidden="true" type="radio" id="input_mode_2" name="input_mode" value="2" onclick="sync_input();">
               <pre hidden="true" class="viewer" id="progview"> </pre>
-
               <pre hidden="true" class="viewer" id="inputview"> </pre>
+
+
+              <pre class="viewer" id="outputview"> </pre>
+              <p class="uppanelcode">00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F</p>
+              <div id="mv0">
+                <p class="viewer" id="memview3"></p>
+              </div>
+              <div id="mv1">
+              <p class="viewer" id="memview"> </p>
+              </div>
+              <div id="mv2">
+              <p class="viewer" id="memview2"> </p>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
 
-      <br> Memory Viewer:<br>
-        <p class="uppanelcode">00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F</p>
-        <div id="mv0">
-          <p class="viewer" id="memview3"></p>
-        </div>
-      <div id="mv1">
-        <p class="viewer" id="memview"> </p>
-      </div>
-      <div id="mv2">
-        <p class="viewer" id="memview2"> </p>
-      </div>
 
 
       <select hidden="true" onchange="this.form.source.value=this.options[this.selectedIndex].value; this.selectedIndex=0;" id="edit_progs">
@@ -124,10 +126,11 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"></span>
         </button>
+        <h4 class="modal-title">Input character</h4>
         </div>
         <div class="modal-body">
-          <input type="text" class="form-control" id="inputinmodaldec" placeholder="input decimal code ">
-          <input type="text" class="form-control" id="inputinmodalhex" placeholder="input hex">
+          <input type="text" class="form-control" id="inputinmodaldec" placeholder="char ">
+          <input type="text" class="form-control" id="inputinmodalhex" placeholder="hex">
         </div>
         <div class="modal-footer">
           <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>!-->
