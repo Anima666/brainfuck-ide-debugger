@@ -75,7 +75,6 @@ function Authorization(token) {
 data = getdata(uid);
 
 if ((data != null) && (uid != "")) {
-  //console.log('test');
   createbtns();
 }
 
@@ -103,8 +102,8 @@ function getdata(key) {
 }
 
 function savedata(key, obj) {
-  var serialObj = JSON.stringify(obj); //сериализуем его
-  localStorage.setItem(key, serialObj); //запишем его в хранилище по ключу "myKey"
+  var serialObj = JSON.stringify(obj);
+  localStorage.setItem(key, serialObj);
 }
 
 function savecurrentfile() {
@@ -131,7 +130,6 @@ function createbtn(file) {
     type: "text",
     value: file.filename,
     readOnly: true,
-    //  href: '#',
     class: 'form-control'
 
   }).appendTo('#btn');
@@ -144,17 +142,13 @@ function newfile() {
       filename: filename,
       content: ""
     }
-    //file.filename = filename;
-    //file.content = " ";
+
     data.push(file2);
     savedata(uid, data);
 
     createbtn(file2);
     console.log('newfile')
-    //$("#savebtn").show();
-    //$("#newfile").hide();
     $("#edit_source").val("");
-    //filename = null;
 
   } catch (e) {
     console.log(e);
@@ -162,7 +156,6 @@ function newfile() {
 }
 
 function deletefile(file) {
-  //var filename1 = findfile(file);
   if (filename != null) {
     filename = null;
     data.splice(findfileindex(file), 1);
@@ -223,20 +216,14 @@ function rename(obj) {
   }
 }
 
-//$("input").on('dblclick', '.form-control', function() {
-//$("input").dblclick(function(){
 $('.viewer').on('click', 'span', function(e) {
   var span = this;
   var idx = this.className;
 
-//  console.log('idx ' + idx);
-  //var input1 = $('span input')[parseInt(idx)];
-
-  //console.log(input1);
-$('span[class='+idx+'] input').keyup(function(event) {
+  $('span[class=' + idx + '] input').keyup(function(event) {
     if (event.keyCode === 13) {
-      console.log('idx '+idx);
-      //console.log(value);
+      console.log('idx ' + idx);
+
       changeselemmemory(idx, parseInt(($(this).val()), 16));
       update_memview2();
       return;
@@ -252,8 +239,18 @@ function test() {
   newfile();
 }
 
-function showmemorypnl() {
-  $("#outputview").hide();
+function showmemorypnl(title) {
+  if (title.value == "Out") {
+    $("#outputview").show();
+    title.value = "Memory";
+    return;
+  }
+  hidepanel('#outputview');
+  title.value = "Out";
+}
+
+function hidepanel(idpnl) {
+  $(idpnl).hide();
 }
 
 function showoutl() {

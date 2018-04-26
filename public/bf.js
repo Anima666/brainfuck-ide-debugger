@@ -346,16 +346,11 @@ function update_memview() {
 
       var label2 = transformtodots(pad_num(g_memory[idx], 2));
 
-      //  cells.push('<span style="background-color: lightgreen" class = "' + idx + '">' + label + '</span>');
-      //cells.push('<inpt');
-      cells.push('<span class = "' + idx + '"><input type="text" class="inputdump" maxlength="3" size="2" value="' + label + '"></span>');
+      cells.push('<span class = "' + (idx+1) + '"><input type="text" class="inputdump" maxlength="2" size="2" value="' + label + '"></span>');
       if (idx == g_mp) {
-        //  cells.push('<input type="text" value="'+ label +'">');
-        //cells.push('<span style="background-color: lightgreen"><input type="text" value="'+label+'"></span>');
         cells2.push('<span style="background-color: lightgreen">' + label2 + '</span>');
 
       } else {
-        //cells.push(label);
         cells2.push(label2);
       }
     }
@@ -366,10 +361,9 @@ function update_memview() {
 
   var html = lines.join(g_linebreaker);
   var html2 = lines2.join(g_linebreaker);
-
   var p_node = document.getElementById('memview');
-
   var p_node2 = document.getElementById('memview2'); //колхоз
+
   p_node.innerHTML = html;
   p_node2.innerHTML = html2;
   return;
@@ -413,8 +407,8 @@ function update_memview() {
 
   //set_viewdata('memview', line_1 + g_linebreaker + line_2 + g_linebreaker + line_3 + g_linebreaker + line_4);
   var p_node = document.getElementById('memview');
-
   var p_node2 = document.getElementById('memview'); //колхоз
+
   p_node2.innerHTML = line_1 + g_linebreaker + line_2 + g_linebreaker + line_3 + g_linebreaker + line_4; //колхоз
   p_node.innerHTML = line_1 + g_linebreaker + line_2 + g_linebreaker + line_3 + g_linebreaker + line_4;
 }
@@ -558,7 +552,6 @@ function run_step() {
 
   if (g_ip >= g_program.length) {
     debug_done();
-    //alert("done!");
   }
 }
 
