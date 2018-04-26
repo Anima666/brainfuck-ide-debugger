@@ -127,14 +127,6 @@ function createbtns() {
 }
 
 function createbtn(file) {
-  //  console.log(file);
-  //$('<a>', {
-  //  text: file.filename,
-  //href: '#',
-  //class: 'button'
-  //click: function(){ BlahFunc( options.rowId );return false;}
-  //}).appendTo('#btn');
-
   $('<input>', {
     type: "text",
     value: file.filename,
@@ -167,7 +159,6 @@ function newfile() {
   } catch (e) {
     console.log(e);
   }
-
 }
 
 function deletefile(file) {
@@ -209,36 +200,8 @@ $('#btn').on('dblclick', '.form-control', function() {
   console.log("dbclick");
   rename(this);
   filename = null;
-
 })
 
-$(document).ready(function() {
-  var trigger = $('.hamburger'),
-    overlay = $('.overlay'),
-    isClosed = false;
-
-  trigger.click(function() {
-    hamburger_cross();
-  });
-
-  function hamburger_cross() {
-
-    if (isClosed == true) {
-      overlay.hide();
-      trigger.removeClass('is-open');
-      trigger.addClass('is-closed');
-      isClosed = false;
-    } else {
-      overlay.show();
-      trigger.removeClass('is-closed');
-      trigger.addClass('is-open');
-      isClosed = true;
-    }
-  }
-  $('[data-toggle="offcanvas"]').click(function() {
-    $('#wrapper').toggleClass('toggled');
-  });
-});
 var btnvalue;
 
 function rename(obj) {
@@ -262,19 +225,22 @@ function rename(obj) {
 
 //$("input").on('dblclick', '.form-control', function() {
 //$("input").dblclick(function(){
-var divhex;
 $('.viewer').on('click', 'span', function(e) {
   var span = this;
   var idx = this.className;
 
-  var input1 = $('span input')[parseInt(idx) + 1];
-  console.log(input1);
-  $('span input').keydown(function(event) {
-  //  console.log('keyup');
+//  console.log('idx ' + idx);
+  //var input1 = $('span input')[parseInt(idx)];
+
+  //console.log(input1);
+$('span[class='+idx+'] input').keyup(function(event) {
     if (event.keyCode === 13) {
-        //console.log($( this ).val());
-         //changeselemmemory(idx, parseInt(divhex.value, 16));
-      }
+      console.log('idx '+idx);
+      //console.log(value);
+      changeselemmemory(idx, parseInt(($(this).val()), 16));
+      update_memview2();
+      return;
+    }
   });
 });
 
