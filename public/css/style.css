@@ -80,7 +80,9 @@
     font-size: 18px;
   }
 }
-
+html{
+  height: 100%;
+}
 body {
   margin: 0px;
   background-color: #eeeeee;
@@ -119,6 +121,7 @@ div.main {
 }
 #mv1{
   float: left;
+  width:
 }
 #mv0{
   float: left;
@@ -132,22 +135,33 @@ pre.viewer {
   background-color: #dddddd;
   margin: 0px;
 }
+#memview{
+  width: 100%;
+}
 #memview3{
   width: 100%;
 }
 #myModal2 .modal-body{
-  width: 1000px;
+
 }
 .inputdump{
   background-color: white;
   margin-bottom:-9px;
   border: none;
-  width: 12px;
-  font-size: 10px;
+  width: 16px;
+  height: 14px;
+  font-size: 15px;
+  text-align: center;
+}
+.inputdump:focus{
+  background-color: green;
+  color: white;
+
 }
 p.viewer {
-  width: 55%;
-  padding: 6px;
+  font-size: 15px;
+  width: 50%;
+  padding: 5px;
   background-color: #dddddd;
   margin: 0px;
   font-family: monospace;
@@ -208,7 +222,7 @@ p.viewer {
 .panel-container-vertical {
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 700px;
   overflow: hidden;
 }
 
@@ -222,12 +236,6 @@ p.viewer {
   color: white;
 }
 
-#top-textarea {
-  height: 100%;
-  width: 100%;
-  background-color: green;
-}
-
 .splitter-horizontal {
   flex: 0 0 auto;
   height: 12px;
@@ -239,7 +247,7 @@ p.viewer {
   flex: 1 1 auto;
   /* resizable */
   padding: 10px;
-  height: 1000px;
+  height: 100%;
   min-height: 200px;
   background: #eee;
 }

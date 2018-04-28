@@ -219,15 +219,17 @@ function rename(obj) {
 $('.viewer').on('click', 'span', function(e) {
   var span = this;
   var idx = this.className;
+  $('span[class=' + idx + '] input').val("");
 
   $('span[class=' + idx + '] input').keyup(function(event) {
-    if (event.keyCode === 13) {
+
+    //if (event.keyCode === 13) {
       console.log('idx ' + idx);
 
       changeselemmemory(idx, parseInt(($(this).val()), 16));
       update_memview2();
       return;
-    }
+    //}
   });
 });
 

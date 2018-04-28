@@ -97,11 +97,10 @@ function get_input() {
   var data = $("#inputinmodaldec").val();
   console.log(data);
   if (data != "")
-    g_memory[g_mp] = parseInt(data.charCodeAt(0) - 1, 10);
+    g_memory[g_mp] = parseInt(data.charCodeAt(0), 10);
   else {
     data = $("#inputinmodalhex").val();
-    //console.log(data);
-    g_memory[g_mp] = parseInt(data, 16) - 1; //eval('0x' + data);
+    g_memory[g_mp] = parseInt(data, 16); //eval('0x' + data);
   }
   return;
   if (($("#inputinmodaldec").val() == null) && ($("#inputinmodalhex").val() == null))
@@ -309,7 +308,7 @@ function update_memview2() {
       //cells.push('<span style="background-color: lightgreen" class = "' + idx + '">' + label + '</span>');
       if (idx == g_mp) {
         //  cells.push('<input type="text" value="'+ label +'">');
-        //cells2.push('<span style="background-color: lightgreen">' + label2 + '</span>');
+        cells2.push('<span">' + label2 + '</span>');
       } else {
         //cells.push(label);
         cells2.push(label2);
@@ -346,9 +345,9 @@ function update_memview() {
 
       var label2 = transformtodots(pad_num(g_memory[idx], 2));
 
-      cells.push('<span class = "' + (idx+1) + '"><input type="text" class="inputdump" maxlength="2" size="2" value="' + label + '"></span>');
+      cells.push('<span class = "' + (idx) + '"><input type="text" class="inputdump" maxlength="2" size="2" value="' + label + '"></span>');
       if (idx == g_mp) {
-        cells2.push('<span style="background-color: lightgreen">' + label2 + '</span>');
+        cells2.push('<span>' + label2 + '</span>');
 
       } else {
         cells2.push(label2);
